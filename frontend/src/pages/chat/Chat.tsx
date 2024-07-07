@@ -686,9 +686,31 @@ const Chat = () => {
     setIsIntentsPanelOpen(true)
   }
 
+  const getCitationDownloadLink = (c?: Citation) => {
+    //a citation is passed?  If not use the activecitation
+    if (!c) {
+        c = activeCitation;
+    }
+    //can be an estates link or a contracts link.  In both cases we swap out the blob storage link for the relevant estates or contracts link from env config
+    if (c?.url) {
+        //there is a url, see if it's in the estates or contracts blob storage
+        if (c.url.includes('/estates/')) {
+            //everything after /estates/
+            const estatesPath = c.url.split('/estates/')[1];
+            return `${ui?.citations_estates}/${estatesPath}`;
+        } else if (c.url.includes('/contracts/')) {
+            const contractsPath = c.url.split('/contracts/')[1];
+            return `${ui?.citations_contracts}/${contractsPath}`;
+        } else {
+            return undefined;
+        }
+    }
+    return undefined;
+  }
+
   const onViewSource = (citation: Citation) => {
-    if (citation.url && !citation.url.includes('blob.core')) {
-      window.open(citation.url, '_blank')
+    if (citation.url) {
+      window.open(getCitationDownloadLink(citation), '_blank')
     }
   }
 
@@ -929,7 +951,7 @@ const Chat = () => {
                 horizontalAlign="space-between"
                 verticalAlign="center">
                 <span aria-label="Citations" className={styles.citationPanelHeader}>
-                  Citations
+                  Citation:
                 </span>
                 <IconButton
                   iconProps={{ iconName: 'Cancel' }}
@@ -941,9 +963,9 @@ const Chat = () => {
                 className={styles.citationPanelTitle}
                 tabIndex={0}
                 title={
-                  activeCitation.url && !activeCitation.url.includes('blob.core')
-                    ? activeCitation.url
-                    : activeCitation.title ?? ''
+                  activeCitation.url
+                    ? getCitationDownloadLink() ?? ''
+                    : ''
                 }
                 onClick={() => onViewSource(activeCitation)}>
                 {activeCitation.title}

@@ -48,6 +48,8 @@ class _UiSettings(BaseSettings):
     chat_description: str = "This chatbot is configured to answer your questions"
     favicon: str = "/favicon.ico"
     show_share_button: bool = True
+    citations_estates: Optional[str] = None
+    citations_contracts: Optional[str] = None
 
 
 class _ChatHistorySettings(BaseSettings):
