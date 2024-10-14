@@ -691,19 +691,10 @@ const Chat = () => {
     if (!c) {
         c = activeCitation;
     }
-    //can be an estates link or a contracts link.  In both cases we swap out the blob storage link for the relevant estates or contracts link from env config
+    //bidbot provides access to the files uploaded in their original sharepoint location, which should be synces exactly to the blob storeage.  If these links are ending up broken, it's likely that the blob and the sharepoint location have gone out of sync.
     if (c?.url) {
-        //there is a url, see if it's in the estates or contracts blob storage
-        if (c.url.includes('/estates/')) {
-            //everything after /estates/
-            const estatesPath = c.url.split('/estates/')[1];
-            return `${ui?.citations_estates}/${estatesPath}`;
-        } else if (c.url.includes('/contracts/')) {
-            const contractsPath = c.url.split('/contracts/')[1];
-            return `${ui?.citations_contracts}/${contractsPath}`;
-        } else {
-            return undefined;
-        }
+        //there is a url.  Replace the blob storage url with the sharepoint url
+        return c.url.replace('https://sthubukai880225054440.blob.core.windows.net/bidbot/Bidbot%20-%20Bidbot%20Raw%20Data%20-%20Bidbot%20Raw%20Data/', ui?.citations_bidbot || '')
     }
     return undefined;
   }

@@ -85,8 +85,7 @@ frontend_settings = {
         "chat_title": app_settings.ui.chat_title,
         "chat_description": app_settings.ui.chat_description,
         "show_share_button": app_settings.ui.show_share_button,
-        "citations_estates": app_settings.ui.citations_estates,
-        "citations_contracts": app_settings.ui.citations_contracts,
+        "citations_bidbot": app_settings.ui.citations_bidbot,
     },
     "sanitize_answer": app_settings.base_settings.sanitize_answer,
 }

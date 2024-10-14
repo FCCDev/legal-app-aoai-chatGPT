@@ -137,8 +137,7 @@ export type UI = {
   logo?: string
   chat_logo?: string
   show_share_button?: boolean
-  citations_estates?: string
-  citations_contracts?: string
+  citations_bidbot?: string
 }
 
 export type FrontendSettings = {
