@@ -680,6 +680,8 @@ const Chat = () => {
   const onShowCitation = (citation: Citation) => {
     setActiveCitation(citation)
     setIsCitationPanelOpen(true)
+    //show some debug info
+    console.log('Citation:', citation)
   }
 
   const onShowExecResult = () => {
